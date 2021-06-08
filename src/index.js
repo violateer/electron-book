@@ -16,6 +16,8 @@ const createWindow = () => {
       // 支持node接口
       nodeIntegration: true,
       contextIsolation: false,
+      // 支持webview
+      webviewTag: true,
     },
   });
 

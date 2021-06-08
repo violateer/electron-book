@@ -1,30 +1,16 @@
-const fs = require('fs');
+const webview = document.querySelector('#wv');
 
-let holder = document.querySelector('#holder');
-let readList = document.querySelector('#readList');
-
-holder.addEventListener('drop', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  for (const file of e.dataTransfer.files) {
-    fs.readFile(file.path, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        let newDiv = document.createElement('div');
-        newDiv.className = 'readFile';
-        newDiv.innerHTML = `
-            <h3>${file.name}</h3>
-            <pre>${data}</pre>
-          `;
-        readList.appendChild(newDiv);
-      }
-    });
-  }
+webview.addEventListener('did-start-loading', () => {
+  console.log('正在加载...');
 });
 
-holder.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+webview.addEventListener('did-stop-loading', () => {
+  console.log('加载完毕.');
+  console.log(webview);
+
+  webview.insertCSS(`
+        #su {
+            background:red !important;
+        }
+    `);
 });
